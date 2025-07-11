@@ -1,6 +1,7 @@
 package com.example.projeto_spring.domain.nacionalidade;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -14,9 +15,16 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 public class  Nacionalidade {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    @Column(name = "imagem")
     private String imagemBandeira;
     private String sigla;
+
+    public Nacionalidade(DtoCadastroNacionalidade dto) {
+        this.nome = dto.nome();
+        this.imagemBandeira = dto.imagemBandeira();
+        this.sigla = dto.sigla();
+    }
 }
