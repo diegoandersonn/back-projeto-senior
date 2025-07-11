@@ -1,11 +1,9 @@
 package com.example.projeto_spring.domain.jogador;
 
-import com.example.projeto_spring.domain.nacionalidade.Nacionalidade;
-import com.example.projeto_spring.domain.time.Time;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Table(name = "jogadores")
 @Entity(name = "Jogador")
@@ -15,28 +13,25 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id")
 public class Jogador {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "time_id")
-    @Setter
-    private Time time;
+    private Long timeId;
     private String nome;
     private int numeroCamisa;
-    @Embedded
-    private Nacionalidade nacionalidade;
+    private Long nacionalidadeId;
     private Double valorAtual;
     private Double valorPago;
     @Enumerated(EnumType.STRING)
     private TipoContrato tipoContrato;
-    private LocalDateTime dataNascimento;
-    private LocalDateTime contratoInicio;
-    private LocalDateTime contratoFim;
+    private LocalDate dataNascimento;
+    private LocalDate contratoInicio;
+    private LocalDate contratoFim;
 
-    public Jogador(DadosCadastroJogador dto) {
+    public Jogador(DtoCadastroJogador dto) {
         this.nome = dto.nome();
         this.numeroCamisa = dto.numeroCamisa();
-        this.nacionalidade = dto.nacionalidade();
+        this.nacionalidadeId = dto.nacionalidadeId();
+        this.timeId = dto.timeId();
         this.valorAtual = dto.valorAtual();
         this.valorPago = dto.valorPago();
         this.tipoContrato = dto.tipoContrato();
