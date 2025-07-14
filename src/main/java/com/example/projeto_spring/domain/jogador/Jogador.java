@@ -17,6 +17,11 @@ public class Jogador {
     private Long id;
     private Long timeId;
     private String nome;
+    private String nomeCompleto;
+    @Enumerated(EnumType.STRING)
+    private Posicao posicao;
+    private Double altura;
+    private Double salario;
     private int numeroCamisa;
     private Long nacionalidadeId;
     private Double valorAtual;
@@ -29,9 +34,13 @@ public class Jogador {
 
     public Jogador(DtoCadastroJogador dto) {
         this.nome = dto.nome();
+        this.nomeCompleto = dto.nomeCompleto();
+        this.altura = dto.altura();
         this.numeroCamisa = dto.numeroCamisa();
+        this.posicao = dto.posicao();
         this.nacionalidadeId = dto.nacionalidadeId();
         this.timeId = dto.timeId();
+        this.salario = dto.salario();
         this.valorAtual = dto.valorAtual();
         this.valorPago = dto.valorPago();
         this.tipoContrato = dto.tipoContrato();

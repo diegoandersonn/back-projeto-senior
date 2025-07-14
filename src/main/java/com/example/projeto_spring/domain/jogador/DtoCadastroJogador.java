@@ -12,12 +12,20 @@ import java.util.Date;
 public record DtoCadastroJogador(
         @NotBlank
         String nome,
+        @NotBlank
+        String nomeCompleto,
         @NotNull
         int numeroCamisa,
+        @NotNull
+        Double altura,
+        @NotNull
+        Posicao posicao,
         @NotNull
         Long timeId,
         @NotNull
         Long nacionalidadeId,
+        @NotNull
+        Double salario,
         @NotNull
         Double valorAtual,
         @NotNull
