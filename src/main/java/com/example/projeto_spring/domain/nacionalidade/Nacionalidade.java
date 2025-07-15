@@ -1,7 +1,7 @@
 package com.example.projeto_spring.domain.nacionalidade;
 
+import com.example.projeto_spring.dto.nacionalidade.DtoCadastroNacionalidade;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class  Nacionalidade {
+public class Nacionalidade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
