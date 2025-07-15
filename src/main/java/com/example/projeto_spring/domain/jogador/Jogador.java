@@ -1,6 +1,11 @@
 package com.example.projeto_spring.domain.jogador;
 
+import com.example.projeto_spring.dto.jogador.DtoAtualizarJogador;
+import com.example.projeto_spring.dto.jogador.DtoCadastroJogador;
+import com.example.projeto_spring.enums.Posicao;
+import com.example.projeto_spring.enums.TipoContrato;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -47,5 +52,35 @@ public class Jogador {
         this.dataNascimento = dto.dataNascimento();
         this.contratoInicio = dto.contratoInicio();
         this.contratoFim = dto.contratoFim();
+    }
+
+    public void atualizar(@Valid DtoAtualizarJogador dto) {
+        if (dto.nome() != null) {
+            this.nome = dto.nome();
+        }
+        if (dto.numeroCamisa() != null) {
+            this.numeroCamisa = dto.numeroCamisa();
+        }
+        if (dto.altura() != null) {
+            this.altura = dto.altura();
+        }
+        if (dto.posicao() != null) {
+            this.posicao = dto.posicao();
+        }
+        if (dto.nacionalidadeId() != null) {
+            this.nacionalidadeId = dto.nacionalidadeId();
+        }
+        if (dto.salario() != null) {
+            this.salario = dto.salario();
+        }
+        if (dto.valorAtual() != null) {
+            this.valorAtual = dto.valorAtual();
+        }
+        if (dto.tipoContrato() != null) {
+            this.tipoContrato = dto.tipoContrato();
+        }
+        if (dto.contratoFim() != null) {
+            this.contratoFim = dto.contratoFim();
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.projeto_spring.domain.jogador;
+package com.example.projeto_spring.enums;
 
 public enum Posicao {
     GOLEIRO,

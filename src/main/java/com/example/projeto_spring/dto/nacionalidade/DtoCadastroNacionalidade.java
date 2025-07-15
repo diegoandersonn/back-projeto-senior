@@ -1,4 +1,4 @@
-package com.example.projeto_spring.domain.nacionalidade;
+package com.example.projeto_spring.dto.nacionalidade;
 
 import jakarta.validation.constraints.NotBlank;
 

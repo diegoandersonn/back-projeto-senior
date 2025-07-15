@@ -1,6 +1,11 @@
 package com.example.projeto_spring.controller;
 
 import com.example.projeto_spring.domain.jogador.*;
+import com.example.projeto_spring.dto.jogador.DtoAtualizarJogador;
+import com.example.projeto_spring.dto.jogador.DtoCadastroJogador;
+import com.example.projeto_spring.dto.jogador.DtoDetalhamentoJogador;
+import com.example.projeto_spring.dto.jogador.DtoListarJogador;
+import com.example.projeto_spring.repository.JogadorRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +38,24 @@ public class JogadorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> listarJogador(@PathVariable Long id) {
+    public ResponseEntity listarJogador(@PathVariable Long id) {
         Optional<Jogador> jogador = jogadorRepository.findById(id);
         return jogador
                 .map(j -> ResponseEntity.ok(new DtoListarJogador(j)))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity atualizar(@RequestBody @Valid DtoAtualizarJogador dto) {
+        Jogador jogador = jogadorRepository.getReferenceById(dto.id());
+        jogador.atualizar(dto);
+        return ResponseEntity.ok(new DtoDetalhamentoJogador(jogador));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity excluir(@PathVariable Long id) {
+        Jogador jogador = jogadorRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DtoDetalhamentoJogador(jogador));
     }
 }

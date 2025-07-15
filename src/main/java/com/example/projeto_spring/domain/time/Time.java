@@ -1,5 +1,7 @@
 package com.example.projeto_spring.domain.time;
 
+import com.example.projeto_spring.dto.time.DtoAtualizarTime;
+import com.example.projeto_spring.dto.time.DtoCadastroTime;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
@@ -24,5 +26,21 @@ public class Time {
         this.estadio = dto.estadio();
         this.saldoTransferencias = dto.saldoTransferencias();
         this.nacionalidadeId = dto.nacionalidadeId();
+    }
+
+    public void atualizar(@Valid DtoAtualizarTime dto) {
+        if (dto.nome() != null) {
+            this.nome = dto.nome();
+        }
+        if (dto.estadio() != null) {
+            this.estadio = dto.estadio();
+        }
+        if (dto.saldoTransferencias() != null) {
+            this.saldoTransferencias = dto.saldoTransferencias();
+        }
+    }
+
+    public void excluir() {
+
     }
 }
