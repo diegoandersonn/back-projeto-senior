@@ -83,4 +83,8 @@ public class Jogador {
             this.contratoFim = dto.contratoFim();
         }
     }
+
+    public void excluir() {
+        this.timeId = 3L;
+    }
 }

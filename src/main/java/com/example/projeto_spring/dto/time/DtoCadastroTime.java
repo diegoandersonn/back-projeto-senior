@@ -1,4 +1,17 @@
 package com.example.projeto_spring.dto.time;
 
-public record DtoCadastroTime(String nome, String estadio, Double saldoTransferencias, Long nacionalidadeId) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
+public record DtoCadastroTime(
+        @NotBlank
+        String nome,
+        @NotBlank
+        String estadio,
+        @NotNull
+        @Positive
+        Double saldoTransferencias,
+        @NotNull
+        Long nacionalidadeId) {
 }
