@@ -1,7 +1,6 @@
 package com.example.projeto_spring.service;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -47,6 +46,7 @@ public class TokenService {
     }
 
     private Instant dataExpiracao() {
-        return Instant.now().plus(15, ChronoUnit.MINUTES);
+//        return Instant.now().plus(15, ChronoUnit.MINUTES);
+        return Instant.now().plus(1, ChronoUnit.DAYS);
     }
 }

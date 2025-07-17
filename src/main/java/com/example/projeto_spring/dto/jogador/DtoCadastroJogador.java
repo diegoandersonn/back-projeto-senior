@@ -30,7 +30,7 @@ public record DtoCadastroJogador(
         @Positive
         Double valorAtual,
         @NotNull
-        @Positive
+        @PositiveOrZero
         Double valorPago,
         @NotNull
         TipoContrato tipoContrato,
