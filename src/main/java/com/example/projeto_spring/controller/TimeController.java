@@ -1,6 +1,6 @@
 package com.example.projeto_spring.controller;
 
-import com.example.projeto_spring.domain.time.*;
+import com.example.projeto_spring.domain.Time;
 import com.example.projeto_spring.dto.time.DtoAtualizarTime;
 import com.example.projeto_spring.dto.time.DtoCadastroTime;
 import com.example.projeto_spring.dto.time.DtoDetalhamentoTime;

@@ -1,4 +1,4 @@
-package com.example.projeto_spring.domain.jogador;
+package com.example.projeto_spring.domain;
 
 import com.example.projeto_spring.dto.jogador.DtoAtualizarJogador;
 import com.example.projeto_spring.dto.jogador.DtoCadastroJogador;
@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Table(name = "jogadores")
 @Entity(name = "Jogador")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

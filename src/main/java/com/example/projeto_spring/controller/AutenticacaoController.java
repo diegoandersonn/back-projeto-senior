@@ -1,18 +1,17 @@
 package com.example.projeto_spring.controller;
 
-import com.example.projeto_spring.domain.usuario.Usuario;
+import com.example.projeto_spring.domain.Usuario;
 import com.example.projeto_spring.dto.security.DtoTokenJWT;
-import com.example.projeto_spring.dto.usuario.DtoAutenticacao;
+import com.example.projeto_spring.dto.autenticacao.DtoAutenticacao;
 import com.example.projeto_spring.repository.UsuarioRepository;
-import com.example.projeto_spring.service.TokenService;
+import com.example.projeto_spring.service.TokenJWTService;
+import com.example.projeto_spring.validators.cadastro.ValidaCadastro;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,13 +19,13 @@ import org.springframework.web.bind.annotation.*;
 public class AutenticacaoController {
 
     @Autowired
-    private TokenService tokenService;
+    private TokenJWTService tokenService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private ValidaCadastro validaCadastro;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -42,9 +41,7 @@ public class AutenticacaoController {
     @PostMapping("/register")
     @Transactional
     public ResponseEntity cadastar(@RequestBody @Valid DtoAutenticacao dto) {
-        var senhaCriptografada = passwordEncoder.encode(dto.senha());
-        Usuario usuario = new Usuario(dto.login(), senhaCriptografada);
-        usuarioRepository.save(usuario);
+        validaCadastro.validar(dto);
         return ResponseEntity.ok().build();
     }
 }

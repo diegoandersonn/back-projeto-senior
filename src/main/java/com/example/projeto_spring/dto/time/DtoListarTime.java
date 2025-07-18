@@ -1,6 +1,6 @@
 package com.example.projeto_spring.dto.time;
 
-import com.example.projeto_spring.domain.time.Time;
+import com.example.projeto_spring.domain.Time;
 
 public record DtoListarTime(Long id, String nome, String estadio, Double saldoTransferencias, Long nacionalidadeId) {
     public DtoListarTime(Time time) {

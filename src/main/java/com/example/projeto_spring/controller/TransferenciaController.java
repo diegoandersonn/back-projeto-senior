@@ -1,6 +1,6 @@
 package com.example.projeto_spring.controller;
 
-import com.example.projeto_spring.domain.transferencia.Transferencia;
+import com.example.projeto_spring.domain.Transferencia;
 import com.example.projeto_spring.repository.TransferenciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

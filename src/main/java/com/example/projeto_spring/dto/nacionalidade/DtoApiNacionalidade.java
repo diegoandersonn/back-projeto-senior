@@ -4,6 +4,7 @@ public class DtoApiNacionalidade {
     public Name name;
     public Flags flags;
     public String cca3;
+    public String region;
 
     public static class Name {
         public String common;

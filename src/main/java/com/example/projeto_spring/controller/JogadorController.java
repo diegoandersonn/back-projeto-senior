@@ -1,7 +1,7 @@
 package com.example.projeto_spring.controller;
 
-import com.example.projeto_spring.domain.jogador.*;
-import com.example.projeto_spring.domain.transferencia.Transferencia;
+import com.example.projeto_spring.domain.Jogador;
+import com.example.projeto_spring.domain.Transferencia;
 import com.example.projeto_spring.dto.jogador.DtoAtualizarJogador;
 import com.example.projeto_spring.dto.jogador.DtoCadastroJogador;
 import com.example.projeto_spring.dto.jogador.DtoDetalhamentoJogador;
@@ -9,6 +9,7 @@ import com.example.projeto_spring.dto.jogador.DtoListarJogador;
 import com.example.projeto_spring.dto.transferencia.DtoCadastroTransferencia;
 import com.example.projeto_spring.repository.JogadorRepository;
 import com.example.projeto_spring.repository.TransferenciaRepository;
+import com.example.projeto_spring.validators.jogador.ValidaJogador;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,13 @@ public class JogadorController {
     @Autowired
     private TransferenciaRepository transferenciaRepository;
 
+    @Autowired
+    private ValidaJogador validaJogador;
+
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DtoCadastroJogador dto, UriComponentsBuilder uriBuilder) {
-        Jogador jogador = new Jogador(dto);
-        jogadorRepository.save(jogador);
-        DtoCadastroTransferencia dtoTransferencia = new DtoCadastroTransferencia(jogador.getId(), jogador.getTimeId(), jogador.getValorPago() == 0 ? 0 : jogador.getValorPago() * -1, jogador.getContratoInicio());
-        Transferencia transferencia = new Transferencia(dtoTransferencia);
-        transferenciaRepository.save(transferencia);
+        Jogador jogador = validaJogador.validar(dto);
         var uri = uriBuilder.path("/jogadores/{id}").buildAndExpand(jogador.getId()).toUri();
         return ResponseEntity.created(uri).body(new DtoDetalhamentoJogador(jogador));
     }

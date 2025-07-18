@@ -1,4 +1,4 @@
-package com.example.projeto_spring.dto.usuario;
+package com.example.projeto_spring.dto.autenticacao;
 
 import jakarta.validation.constraints.NotBlank;
 

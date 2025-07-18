@@ -1,7 +1,6 @@
-package com.example.projeto_spring.domain.usuario;
+package com.example.projeto_spring.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

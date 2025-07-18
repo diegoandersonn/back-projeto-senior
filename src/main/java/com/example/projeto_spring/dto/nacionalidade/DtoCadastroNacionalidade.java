@@ -9,6 +9,8 @@ public record DtoCadastroNacionalidade(
         @NotBlank
         String imagemBandeira,
         @NotBlank
-        String sigla
+        String sigla,
+        @NotBlank
+        String continente
 ) {
 }

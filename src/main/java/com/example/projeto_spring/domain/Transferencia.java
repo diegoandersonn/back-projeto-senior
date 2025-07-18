@@ -1,4 +1,4 @@
-package com.example.projeto_spring.domain.transferencia;
+package com.example.projeto_spring.domain;
 
 import com.example.projeto_spring.dto.transferencia.DtoCadastroTransferencia;
 import jakarta.persistence.*;

@@ -2,9 +2,9 @@ package com.example.projeto_spring.controller;
 
 import com.example.projeto_spring.dto.nacionalidade.DtoCadastroNacionalidade;
 import com.example.projeto_spring.dto.nacionalidade.DtoDetalhamentoNacionalidade;
-import com.example.projeto_spring.domain.nacionalidade.Nacionalidade;
+import com.example.projeto_spring.domain.Nacionalidade;
 import com.example.projeto_spring.repository.NacionalidadeRepository;
-import com.example.projeto_spring.service.NacionalidadeService;
+import com.example.projeto_spring.service.ApiNacionalidadesService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class NacionalidadeController {
     @Autowired
     NacionalidadeRepository repository;
     @Autowired
-    private NacionalidadeService service;
+    private ApiNacionalidadesService service;
 
     @PostMapping
     @Transactional

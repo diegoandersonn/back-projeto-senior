@@ -1,4 +1,4 @@
-package com.example.projeto_spring.domain.time;
+package com.example.projeto_spring.domain;
 
 import com.example.projeto_spring.dto.time.DtoAtualizarTime;
 import com.example.projeto_spring.dto.time.DtoCadastroTime;

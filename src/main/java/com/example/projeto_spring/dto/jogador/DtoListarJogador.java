@@ -1,6 +1,6 @@
 package com.example.projeto_spring.dto.jogador;
 
-import com.example.projeto_spring.domain.jogador.Jogador;
+import com.example.projeto_spring.domain.Jogador;
 import com.example.projeto_spring.enums.Posicao;
 import com.example.projeto_spring.enums.TipoContrato;
 

@@ -1,8 +1,7 @@
 package com.example.projeto_spring.infra.security;
 
 import com.example.projeto_spring.repository.UsuarioRepository;
-import com.example.projeto_spring.service.TokenService;
-import jakarta.servlet.Filter;
+import com.example.projeto_spring.service.TokenJWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import java.io.IOException;
 public class SecurityFilter extends OncePerRequestFilter {
 
     @Autowired
-    private TokenService tokenService;
+    private TokenJWTService tokenService;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
