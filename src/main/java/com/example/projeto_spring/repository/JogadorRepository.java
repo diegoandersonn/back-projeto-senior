@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface JogadorRepository extends JpaRepository<Jogador, Long> {
-    List<Jogador> findByTimeId(Long timeId);
+public interface JogadorRepository extends JpaRepository<Jogador, UUID> {
+    List<Jogador> findByTimeId(UUID timeId);
 
-    Boolean existsByTimeIdAndNumeroCamisa(Long timeId, int numeroCamisa);
+    Boolean existsByTimeIdAndNumeroCamisa(UUID timeId, int numeroCamisa);
 
-    Jogador findByTimeIdAndNumeroCamisa(Long timeId, int numeroCamisa);
+    Jogador findByTimeIdAndNumeroCamisa(UUID timeId, int numeroCamisa);
 }

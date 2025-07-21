@@ -20,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("jogadores")
@@ -48,7 +49,7 @@ public class JogadorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity listarJogador(@PathVariable Long id) {
+    public ResponseEntity listarJogador(@PathVariable UUID id) {
         Optional<Jogador> jogador = jogadorRepository.findById(id);
         return jogador
                 .map(j -> ResponseEntity.ok(new DtoListarJogador(j)))
@@ -65,9 +66,9 @@ public class JogadorController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity transferir(@PathVariable Long id) {
+    public ResponseEntity transferir(@PathVariable UUID id) {
         Jogador jogador = jogadorRepository.getReferenceById(id);
-        DtoCadastroTransferencia dtoTransferencia = new DtoCadastroTransferencia(jogador.getId(), jogador.getTimeId(), jogador.getValorPago(), LocalDate.now());
+        DtoCadastroTransferencia dtoTransferencia = new DtoCadastroTransferencia(jogador.getId(), jogador.getTimeId(), jogador.getContrato().getValorPago(), LocalDate.now());
         Transferencia transferencia = new Transferencia(dtoTransferencia);
         transferenciaRepository.save(transferencia);
         jogador.excluir();

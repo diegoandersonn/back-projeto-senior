@@ -1,10 +1,13 @@
 package com.example.projeto_spring.dto.jogador;
 
+import com.example.projeto_spring.dto.contrato.DtoCadastroContrato;
 import com.example.projeto_spring.enums.Posicao;
 import com.example.projeto_spring.enums.TipoContrato;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public record DtoCadastroJogador(
         @NotBlank
@@ -20,27 +23,13 @@ public record DtoCadastroJogador(
         @NotNull
         Posicao posicao,
         @NotNull
-        Long timeId,
+        UUID timeId,
         @NotNull
-        Long nacionalidadeId,
-        @NotNull
-        @Positive
-        Double salario,
-        @NotNull
-        @Positive
-        Double valorAtual,
-        @NotNull
-        @PositiveOrZero
-        Double valorPago,
-        @NotNull
-        TipoContrato tipoContrato,
+        UUID nacionalidadeId,
         @NotNull
         @Past
         LocalDate dataNascimento,
-        @NotNull
-        LocalDate contratoInicio,
-        @NotNull
-        @Future
-        LocalDate contratoFim
+        @Valid
+        DtoCadastroContrato contrato
 ) {
 }

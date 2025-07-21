@@ -16,26 +16,26 @@ public class ValidaDataInicioContrato implements ValidadorJogador {
 
     public void validar(DtoCadastroJogador dto) {
         Nacionalidade nacionalidade = nacionalidadeRepository.getReferenceById(dto.nacionalidadeId());
-        int ano = dto.contratoInicio().getYear();
-        Boolean primeira, segunda;
-        System.out.println(nacionalidade.getContinente());
-        if (dto.valorPago() == 0) {
-            return;
-        } else {
-            if (nacionalidade.getContinente().equals("America do Sul")) {
-                primeira = !dto.contratoInicio().isBefore(LocalDate.of(ano, 1, 1)) && !dto.contratoInicio().isAfter(LocalDate.of(ano, 4, 16));
-                segunda = !dto.contratoInicio().isBefore(LocalDate.of(ano, 6, 22)) && !dto.contratoInicio().isAfter(LocalDate.of(ano, 7, 21));
-            } else if (nacionalidade.getContinente().equals("Europa")) {
-                primeira = !dto.contratoInicio().isBefore(LocalDate.of(ano, 1, 1)) && !dto.contratoInicio().isAfter(LocalDate.of(ano, 2, 2));
-                segunda = !dto.contratoInicio().isBefore(LocalDate.of(ano, 7, 1)) && !dto.contratoInicio().isAfter(LocalDate.of(ano, 8, 31));
-            } else {
-                primeira = !dto.contratoInicio().isBefore(LocalDate.of(ano, 1, 1)) && !dto.contratoInicio().isAfter(LocalDate.of(ano, 1, 31));
-                segunda = !dto.contratoInicio().isBefore(LocalDate.of(ano, 7, 1)) && !dto.contratoInicio().isAfter(LocalDate.of(ano, 8, 31));
-            }
+        var contrato = dto.contrato().contratoInicio();
+        int ano = contrato.getYear();
+        Boolean primeiraJanela, segundaJanela;
 
+        if (dto.contrato().valorPago() == 0) {
+            return;
         }
 
-        if (!primeira && !segunda) {
+        if (nacionalidade.getContinente().equals("America do Sul")) {
+            primeiraJanela = !contrato.isBefore(LocalDate.of(ano, 1, 1)) && !contrato.isAfter(LocalDate.of(ano, 4, 16));
+            segundaJanela = !contrato.isBefore(LocalDate.of(ano, 6, 22)) && !contrato.isAfter(LocalDate.of(ano, 7, 21));
+        } else if (nacionalidade.getContinente().equals("Europa")) {
+            primeiraJanela = !contrato.isBefore(LocalDate.of(ano, 1, 1)) && !contrato.isAfter(LocalDate.of(ano, 2, 2));
+            segundaJanela = !contrato.isBefore(LocalDate.of(ano, 7, 1)) && !contrato.isAfter(LocalDate.of(ano, 8, 31));
+        } else {
+            primeiraJanela = !contrato.isBefore(LocalDate.of(ano, 1, 1)) && !contrato.isAfter(LocalDate.of(ano, 1, 31));
+            segundaJanela = !contrato.isBefore(LocalDate.of(ano, 7, 1)) && !contrato.isAfter(LocalDate.of(ano, 8, 31));
+        }
+
+        if (!primeiraJanela && !segundaJanela) {
             throw new RuntimeException("Data fora das janela de transferência");
         }
     }

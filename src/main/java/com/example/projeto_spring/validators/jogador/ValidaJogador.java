@@ -32,7 +32,7 @@ public class ValidaJogador {
         validadores.forEach(v -> v.validar(dto));
         Jogador jogador = new Jogador(dto);
         jogadorRepository.save(jogador);
-        DtoCadastroTransferencia dtoTransferencia = new DtoCadastroTransferencia(jogador.getId(), jogador.getTimeId(), jogador.getValorPago() == 0 ? 0 : jogador.getValorPago() * -1, jogador.getContratoInicio());
+        DtoCadastroTransferencia dtoTransferencia = new DtoCadastroTransferencia(jogador.getId(), jogador.getTimeId(), jogador.getContrato().getValorPago() == 0 ? 0 : jogador.getContrato().getValorPago() * -1, jogador.getContrato().getContratoInicio());
         Transferencia transferencia = new Transferencia(dtoTransferencia);
         transferenciaRepository.save(transferencia);
         return jogador;

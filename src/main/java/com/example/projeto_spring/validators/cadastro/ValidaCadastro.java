@@ -2,17 +2,13 @@ package com.example.projeto_spring.validators.cadastro;
 
 import com.example.projeto_spring.domain.Usuario;
 import com.example.projeto_spring.dto.autenticacao.DtoAutenticacao;
-import com.example.projeto_spring.infra.exception.ValidacaoExpection;
 import com.example.projeto_spring.repository.UsuarioRepository;
 import com.example.projeto_spring.validators.cadastro.validacoes.ValidadorCadastro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class ValidaCadastro {

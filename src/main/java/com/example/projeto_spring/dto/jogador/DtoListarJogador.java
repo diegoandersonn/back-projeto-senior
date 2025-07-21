@@ -1,15 +1,15 @@
 package com.example.projeto_spring.dto.jogador;
 
+import com.example.projeto_spring.domain.Contrato;
 import com.example.projeto_spring.domain.Jogador;
 import com.example.projeto_spring.enums.Posicao;
 import com.example.projeto_spring.enums.TipoContrato;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
-public record DtoListarJogador(Long id, String nome, String nomeCompleto, Long timeId, Long nacionalidadeId,
-                               int numeroCamisa, Double altura, Posicao posicao, Double valorAtual,
-                               Double valorPago, Double salario, TipoContrato tipoContrato, LocalDate dataNascimento,
-                               LocalDate contratoInicio, LocalDate contratoFim) {
+public record DtoListarJogador(UUID id, String nome, String nomeCompleto, UUID timeId, UUID nacionalidadeId,
+                               int numeroCamisa, Double altura, Posicao posicao, LocalDate dataNascimento, Contrato contrato) {
     public DtoListarJogador(Jogador jogador) {
         this(
                 jogador.getId(),
@@ -20,13 +20,8 @@ public record DtoListarJogador(Long id, String nome, String nomeCompleto, Long t
                 jogador.getNumeroCamisa(),
                 jogador.getAltura(),
                 jogador.getPosicao(),
-                jogador.getValorAtual(),
-                jogador.getValorPago(),
-                jogador.getSalario(),
-                jogador.getTipoContrato(),
                 jogador.getDataNascimento(),
-                jogador.getContratoInicio(),
-                jogador.getContratoFim()
+                jogador.getContrato()
         );
     }
 }
