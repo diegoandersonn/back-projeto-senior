@@ -1,5 +1,5 @@
 CREATE TABLE times(
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT gen_random_build(),
     nome VARCHAR(255),
     estadio VARCHAR(255),
     saldo_transferencia DOUBLE PRECISION,

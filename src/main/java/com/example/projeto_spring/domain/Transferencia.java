@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Table(name = "transferencias")
 @Entity(name = "Transferencia")
@@ -17,10 +18,10 @@ import java.time.LocalDate;
 @EqualsAndHashCode(of = "id")
 public class Transferencia {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long jogadorId;
-    private Long timeId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    private UUID jogadorId;
+    private UUID timeId;
     private Double valor;
     private LocalDate data;
 

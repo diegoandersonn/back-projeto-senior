@@ -4,12 +4,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public record DtoCadastroTransferencia(
         @NotNull
-        Long jogadorId,
+        UUID jogadorId,
         @NotNull
-        Long timeId,
+        UUID timeId,
         @NotNull
         @Positive
         Double valor,

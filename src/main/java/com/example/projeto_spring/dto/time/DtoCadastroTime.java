@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+import java.util.UUID;
+
 public record DtoCadastroTime(
         @NotBlank
         String nome,
@@ -13,5 +15,7 @@ public record DtoCadastroTime(
         @Positive
         Double saldoTransferencias,
         @NotNull
-        Long nacionalidadeId) {
+        UUID nacionalidadeId,
+        @NotNull
+        UUID usuarioId) {
 }

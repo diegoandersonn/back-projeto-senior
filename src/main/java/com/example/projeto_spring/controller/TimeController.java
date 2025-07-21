@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("times")
@@ -37,9 +38,9 @@ public class TimeController {
         return ResponseEntity.ok(times);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> listarTime(@PathVariable Long id) {
-        Optional<Time> time = timeRepository.findById(id);
+    @GetMapping("/{usuarioId}")
+    public ResponseEntity<?> listarTimesPorUsuarios(@PathVariable UUID usuarioId) {
+        Optional<Time> time = timeRepository.findByUsuarioId(usuarioId);
         return time
                 .map(j -> ResponseEntity.ok(new DtoListarTime(j)))
                 .orElse(ResponseEntity.notFound().build());
@@ -54,7 +55,7 @@ public class TimeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity excluir(@PathVariable Long id) {
+    public ResponseEntity excluir(@PathVariable UUID id) {
         timeRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }

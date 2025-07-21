@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
 
+import java.util.UUID;
+
 @Table(name = "times")
 @Entity(name = "Time")
 @Getter
@@ -14,17 +16,19 @@ import lombok.*;
 @EqualsAndHashCode(of = "id")
 public class Time {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String nome;
     private String estadio;
     private Double saldoTransferencias;
-    private Long nacionalidadeId;
+    private UUID usuarioId;
+    private UUID nacionalidadeId;
 
     public Time(@Valid DtoCadastroTime dto) {
         this.nome = dto.nome();
         this.estadio = dto.estadio();
         this.saldoTransferencias = dto.saldoTransferencias();
+        this.usuarioId = dto.usuarioId();
         this.nacionalidadeId = dto.nacionalidadeId();
     }
 

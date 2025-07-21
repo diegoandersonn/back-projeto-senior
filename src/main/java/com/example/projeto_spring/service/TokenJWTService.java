@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 
 @Service
 public class TokenJWTService {
@@ -23,7 +24,7 @@ public class TokenJWTService {
             return JWT.create()
                     .withIssuer("API")
                     .withSubject(usuario.getLogin())
-                    .withClaim("id", usuario.getId())
+                    .withClaim("id", Collections.singletonList(usuario.getId()))
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
         } catch (JWTCreationException exception) {

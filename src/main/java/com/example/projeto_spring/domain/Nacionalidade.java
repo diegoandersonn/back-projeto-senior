@@ -3,6 +3,9 @@ package com.example.projeto_spring.domain;
 import com.example.projeto_spring.dto.nacionalidade.DtoCadastroNacionalidade;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 @Table(name = "nacionalidades")
 @Entity(name = "Nacionalidade")
@@ -13,8 +16,8 @@ import lombok.*;
 @EqualsAndHashCode(of = "id")
 public class Nacionalidade {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String nome;
     @Column(name = "imagem")
     private String imagemBandeira;

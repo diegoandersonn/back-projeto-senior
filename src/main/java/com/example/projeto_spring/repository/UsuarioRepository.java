@@ -5,7 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+import java.util.UUID;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
     UserDetails findByLogin(String login);
 
     boolean existsByLogin(@NotBlank String login);
