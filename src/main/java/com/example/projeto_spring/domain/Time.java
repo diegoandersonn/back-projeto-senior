@@ -21,16 +21,20 @@ public class Time {
     private String nome;
     private String estadio;
     private Double saldoTransferencias;
-    private UUID usuarioId;
-    private UUID nacionalidadeId;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+    @ManyToOne
+    @JoinColumn(name = "nacionalidade_id")
+    private Nacionalidade nacionalidade;
 
-    public Time(@Valid DtoCadastroTime dto) {
-        this.nome = dto.nome();
-        this.estadio = dto.estadio();
-        this.saldoTransferencias = dto.saldoTransferencias();
-        this.usuarioId = dto.usuarioId();
-        this.nacionalidadeId = dto.nacionalidadeId();
-    }
+//    public Time(@Valid DtoCadastroTime dto) {
+//        this.nome = dto.nome();
+//        this.estadio = dto.estadio();
+//        this.saldoTransferencias = dto.saldoTransferencias();
+//        this.usuarioId = dto.usuarioId();
+//        this.nacionalidadeId = dto.nacionalidadeId();
+//    }
 
     public void atualizar(@Valid DtoAtualizarTime dto) {
         if (dto.nome() != null) {

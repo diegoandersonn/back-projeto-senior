@@ -1,5 +1,5 @@
 CREATE TABLE transferencias (
-    id  UUID PRIMARY KEY DEFAULT gen_random_build(),
+    id  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     jogador_id UUID NOT NULL,
     time_id UUID NOT NULL,
     valor DOUBLE PRECISION NOT NULL,

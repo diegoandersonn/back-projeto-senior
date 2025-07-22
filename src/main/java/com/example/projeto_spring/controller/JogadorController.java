@@ -5,11 +5,11 @@ import com.example.projeto_spring.domain.Transferencia;
 import com.example.projeto_spring.dto.jogador.DtoAtualizarJogador;
 import com.example.projeto_spring.dto.jogador.DtoCadastroJogador;
 import com.example.projeto_spring.dto.jogador.DtoDetalhamentoJogador;
-import com.example.projeto_spring.dto.jogador.DtoListarJogador;
+import com.example.projeto_spring.dto.jogador.DtoListagemJogador;
 import com.example.projeto_spring.dto.transferencia.DtoCadastroTransferencia;
 import com.example.projeto_spring.repository.JogadorRepository;
 import com.example.projeto_spring.repository.TransferenciaRepository;
-import com.example.projeto_spring.validators.jogador.ValidaJogador;
+import com.example.projeto_spring.service.jogador.JogadorService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +32,12 @@ public class JogadorController {
     private TransferenciaRepository transferenciaRepository;
 
     @Autowired
-    private ValidaJogador validaJogador;
+    private JogadorService jogadorService;
 
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DtoCadastroJogador dto, UriComponentsBuilder uriBuilder) {
-        Jogador jogador = validaJogador.validar(dto);
+        Jogador jogador = jogadorService.cadastrar(dto);
         var uri = uriBuilder.path("/jogadores/{id}").buildAndExpand(jogador.getId()).toUri();
         return ResponseEntity.created(uri).body(new DtoDetalhamentoJogador(jogador));
     }
@@ -52,15 +52,14 @@ public class JogadorController {
     public ResponseEntity listarJogador(@PathVariable UUID id) {
         Optional<Jogador> jogador = jogadorRepository.findById(id);
         return jogador
-                .map(j -> ResponseEntity.ok(new DtoListarJogador(j)))
+                .map(j -> ResponseEntity.ok(new DtoListagemJogador(j)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DtoAtualizarJogador dto) {
-        Jogador jogador = jogadorRepository.getReferenceById(dto.id());
-        jogador.atualizar(dto);
+        Jogador jogador = jogadorService.atualizar(dto);
         return ResponseEntity.ok(new DtoDetalhamentoJogador(jogador));
     }
 
@@ -68,10 +67,10 @@ public class JogadorController {
     @Transactional
     public ResponseEntity transferir(@PathVariable UUID id) {
         Jogador jogador = jogadorRepository.getReferenceById(id);
-        DtoCadastroTransferencia dtoTransferencia = new DtoCadastroTransferencia(jogador.getId(), jogador.getTimeId(), jogador.getContrato().getValorPago(), LocalDate.now());
+        DtoCadastroTransferencia dtoTransferencia = new DtoCadastroTransferencia(jogador.getId(), jogador.getTime(), jogador.getContrato().getValorPago(), LocalDate.now());
         Transferencia transferencia = new Transferencia(dtoTransferencia);
         transferenciaRepository.save(transferencia);
-        jogador.excluir();
+//        jogador.excluir();
         return ResponseEntity.noContent().build();
     }
 }

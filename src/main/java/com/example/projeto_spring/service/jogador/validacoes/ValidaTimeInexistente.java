@@ -1,4 +1,4 @@
-package com.example.projeto_spring.validators.jogador.validacoes;
+package com.example.projeto_spring.service.jogador.validacoes;
 
 import com.example.projeto_spring.dto.jogador.DtoCadastroJogador;
 import com.example.projeto_spring.infra.exception.ValidacaoExpection;

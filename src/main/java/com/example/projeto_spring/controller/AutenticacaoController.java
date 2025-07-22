@@ -5,7 +5,7 @@ import com.example.projeto_spring.dto.security.DtoTokenJWT;
 import com.example.projeto_spring.dto.autenticacao.DtoAutenticacao;
 import com.example.projeto_spring.repository.UsuarioRepository;
 import com.example.projeto_spring.service.TokenJWTService;
-import com.example.projeto_spring.validators.cadastro.ValidaCadastro;
+import com.example.projeto_spring.service.cadastro.CadastroService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class AutenticacaoController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private ValidaCadastro validaCadastro;
+    private CadastroService validaCadastro;
 
     @Autowired
     private UsuarioRepository usuarioRepository;

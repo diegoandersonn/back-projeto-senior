@@ -20,15 +20,12 @@ public class Transferencia {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private UUID jogadorId;
-    private UUID timeId;
+    @ManyToOne
+    @JoinColumn(name = "jogador_id")
+    private Jogador jogador;
+    @ManyToOne
+    @JoinColumn(name = "time_id")
+    private Time time;
     private Double valor;
     private LocalDate data;
-
-    public Transferencia(DtoCadastroTransferencia dto) {
-        this.jogadorId = dto.jogadorId();
-        this.timeId = dto.timeId();
-        this.valor = dto.valor();
-        this.data = dto.data();
-    }
 }

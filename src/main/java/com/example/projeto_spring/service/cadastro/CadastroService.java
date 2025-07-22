@@ -1,9 +1,9 @@
-package com.example.projeto_spring.validators.cadastro;
+package com.example.projeto_spring.service.cadastro;
 
 import com.example.projeto_spring.domain.Usuario;
 import com.example.projeto_spring.dto.autenticacao.DtoAutenticacao;
 import com.example.projeto_spring.repository.UsuarioRepository;
-import com.example.projeto_spring.validators.cadastro.validacoes.ValidadorCadastro;
+import com.example.projeto_spring.service.cadastro.validacoes.ValidadorCadastro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ValidaCadastro {
+public class CadastroService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;

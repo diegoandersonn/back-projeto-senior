@@ -1,5 +1,6 @@
 package com.example.projeto_spring.dto.transferencia;
 
+import com.example.projeto_spring.domain.Time;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
