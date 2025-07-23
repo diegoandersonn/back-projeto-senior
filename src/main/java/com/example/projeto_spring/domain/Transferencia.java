@@ -1,6 +1,7 @@
 package com.example.projeto_spring.domain;
 
 import com.example.projeto_spring.dto.transferencia.DtoCadastroTransferencia;
+import com.example.projeto_spring.enums.TipoTransferencia;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -28,4 +29,6 @@ public class Transferencia {
     private Time time;
     private Double valor;
     private LocalDate data;
+    @Enumerated(EnumType.STRING)
+    private TipoTransferencia tipoTransferencia;
 }

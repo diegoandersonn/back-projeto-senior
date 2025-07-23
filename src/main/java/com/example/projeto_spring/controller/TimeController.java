@@ -1,6 +1,7 @@
 package com.example.projeto_spring.controller;
 
 import com.example.projeto_spring.domain.Time;
+import com.example.projeto_spring.dto.jogador.DtoListagemJogador;
 import com.example.projeto_spring.dto.time.DtoAtualizarTime;
 import com.example.projeto_spring.dto.time.DtoCadastroTime;
 import com.example.projeto_spring.dto.time.DtoDetalhamentoTime;
@@ -39,7 +40,7 @@ public class TimeController {
     @GetMapping
     public ResponseEntity listar() {
         List<Time> times = timeRepository.findAll();
-        return ResponseEntity.ok(times);
+        return ResponseEntity.ok(times.stream().map(DtoListagemTime::new).toList());
     }
 
     @GetMapping("/{usuarioId}")

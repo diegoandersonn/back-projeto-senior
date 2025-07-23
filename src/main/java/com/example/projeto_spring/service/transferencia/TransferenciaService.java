@@ -22,7 +22,12 @@ public class TransferenciaService {
     @Autowired
     private TimeRepository timeRepository;
 
-    public Transferencia cadastar(DtoCadastroTransferencia dto) {
+    public Transferencia compra(DtoCadastroTransferencia dto) {
+        Transferencia transferencia = toEntity(dto);
+        transferenciaRepository.save(transferencia);
+        return transferencia;
+    }
+    public Transferencia venda(DtoCadastroTransferencia dto) {
         Transferencia transferencia = toEntity(dto);
         transferenciaRepository.save(transferencia);
         return transferencia;
@@ -36,7 +41,8 @@ public class TransferenciaService {
                 jogador,
                 time,
                 dto.valor(),
-                dto.data()
+                dto.data(),
+                dto.tipoTransferencia()
         );
     }
 

@@ -5,8 +5,8 @@ import com.example.projeto_spring.domain.Time;
 
 import java.util.UUID;
 
-public record DtoListagemTime(UUID id, String nome, String estadio, Double saldoTransferencias, Nacionalidade nacionalidade) {
+public record DtoListagemTime(UUID id, String nome, String estadio, Double saldoTransferencias, UUID nacionalidade) {
     public DtoListagemTime(Time time) {
-        this(time.getId(), time.getNome(), time.getEstadio(), time.getSaldoTransferencias(), time.getNacionalidade());
+        this(time.getId(), time.getNome(), time.getEstadio(), time.getSaldoTransferencias(), time.getNacionalidade().getId());
     }
 }

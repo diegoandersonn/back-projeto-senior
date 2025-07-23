@@ -32,7 +32,7 @@ public class AtuacaoController {
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DtoCadastroAtuacao dto, UriComponentsBuilder uriBuilder) {
         Atuacao atuacao = atuacaoService.cadastrar(dto);
-        var uri = uriBuilder.path("/times/${id}").buildAndExpand(atuacao.getId()).toUri();
+        var uri = uriBuilder.path("/atuacoes/{id}").buildAndExpand(atuacao.getId()).toUri();
         return ResponseEntity.created(uri).body(new DtoDetalhamentoAtuacao(atuacao));
     }
 

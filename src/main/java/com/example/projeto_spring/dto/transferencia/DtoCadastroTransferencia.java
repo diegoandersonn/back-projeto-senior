@@ -1,6 +1,7 @@
 package com.example.projeto_spring.dto.transferencia;
 
 import com.example.projeto_spring.domain.Time;
+import com.example.projeto_spring.enums.TipoTransferencia;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -16,6 +17,8 @@ public record DtoCadastroTransferencia(
         @Positive
         Double valor,
         @NotNull
-        LocalDate data
+        LocalDate data,
+        @NotNull
+        TipoTransferencia tipoTransferencia
 ) {
 }

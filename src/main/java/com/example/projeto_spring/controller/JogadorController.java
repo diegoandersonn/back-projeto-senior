@@ -1,12 +1,10 @@
 package com.example.projeto_spring.controller;
 
 import com.example.projeto_spring.domain.Jogador;
-import com.example.projeto_spring.domain.Transferencia;
 import com.example.projeto_spring.dto.jogador.DtoAtualizarJogador;
 import com.example.projeto_spring.dto.jogador.DtoCadastroJogador;
 import com.example.projeto_spring.dto.jogador.DtoDetalhamentoJogador;
 import com.example.projeto_spring.dto.jogador.DtoListagemJogador;
-import com.example.projeto_spring.dto.transferencia.DtoCadastroTransferencia;
 import com.example.projeto_spring.repository.JogadorRepository;
 import com.example.projeto_spring.repository.TransferenciaRepository;
 import com.example.projeto_spring.service.jogador.JogadorService;
@@ -17,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -45,7 +42,7 @@ public class JogadorController {
     @GetMapping
     public ResponseEntity listar() {
         List<Jogador> jogadores = jogadorRepository.findAll();
-        return ResponseEntity.ok(jogadores);
+        return ResponseEntity.ok(jogadores.stream().map(DtoListagemJogador::new).toList());
     }
 
     @GetMapping("/{id}")
@@ -54,6 +51,13 @@ public class JogadorController {
         return jogador
                 .map(j -> ResponseEntity.ok(new DtoListagemJogador(j)))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/time/{timeId}")
+    public ResponseEntity<List<DtoListagemJogador>> listarPorTime(@PathVariable UUID timeId) {
+        List<Jogador> jogadores = jogadorRepository.findByTimeId(timeId);
+        var dtoList = jogadores.stream().map(DtoListagemJogador::new).toList();
+        return ResponseEntity.ok(dtoList);
     }
 
     @PutMapping
@@ -65,12 +69,8 @@ public class JogadorController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity transferir(@PathVariable UUID id) {
-        Jogador jogador = jogadorRepository.getReferenceById(id);
-        DtoCadastroTransferencia dtoTransferencia = new DtoCadastroTransferencia(jogador.getId(), jogador.getTime(), jogador.getContrato().getValorPago(), LocalDate.now());
-        Transferencia transferencia = new Transferencia(dtoTransferencia);
-        transferenciaRepository.save(transferencia);
-//        jogador.excluir();
+    public ResponseEntity excluir(@PathVariable UUID id) {
+        jogadorService.excluir(id);
         return ResponseEntity.noContent().build();
     }
 }
