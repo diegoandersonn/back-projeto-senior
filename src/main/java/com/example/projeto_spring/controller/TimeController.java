@@ -39,29 +39,32 @@ public class TimeController {
 
     @GetMapping
     public ResponseEntity listar() {
-        List<Time> times = timeRepository.findAll();
+        List<Time> times = timeService.listar();
         return ResponseEntity.ok(times.stream().map(DtoListagemTime::new).toList());
     }
 
-    @GetMapping("/{usuarioId}")
-    public ResponseEntity<?> listarTimesPorUsuarios(@PathVariable UUID usuarioId) {
-        Optional<Time> time = timeRepository.findByUsuarioId(usuarioId);
-        return time
-                .map(j -> ResponseEntity.ok(new DtoListagemTime(j)))
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/{timeId}")
+    public ResponseEntity listarTimesPorId(@PathVariable UUID timeId) {
+        Time time = timeService.listarTimePorId(timeId);
+        return ResponseEntity.ok(new DtoListagemTime(time));
     }
 
-    @PutMapping
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity listarTimesPorUsuarios(@PathVariable UUID usuarioId) {
+        List<Time> times = timeService.listarTimesPorUsuarios(usuarioId);
+        return ResponseEntity.ok(times.stream().map(DtoListagemTime::new).toList());
+    }
+
+    @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity atualizar(@RequestBody @Valid DtoAtualizarTime dto) {
-        Time time = timeRepository.getReferenceById(dto.id());
-        time.atualizar(dto);
+    public ResponseEntity atualizar(@RequestBody @Valid DtoAtualizarTime dto, @PathVariable UUID id) {
+        Time time = timeService.atualizar(dto, id);
         return ResponseEntity.ok(new DtoDetalhamentoTime(time));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity excluir(@PathVariable UUID id) {
-        timeRepository.deleteById(id);
+        timeService.excluir(id);
         return ResponseEntity.noContent().build();
     }
 }

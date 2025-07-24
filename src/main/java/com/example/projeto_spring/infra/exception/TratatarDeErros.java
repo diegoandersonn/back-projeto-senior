@@ -1,6 +1,7 @@
 package com.example.projeto_spring.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -8,13 +9,15 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
 public class TratatarDeErros {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity entityNotFoundException() {
+    public ResponseEntity entityNotFoundException(EntityNotFoundException ex) {
         return ResponseEntity.notFound().build();
     }
 
@@ -22,6 +25,18 @@ public class TratatarDeErros {
     public ResponseEntity methodArgumentNotValidException(MethodArgumentNotValidException ex) {
         var erros = ex.getFieldErrors();
         return ResponseEntity.badRequest().body(erros.stream().map(DtoErro400::new).toList());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity illegalArgumentException(IllegalArgumentException ex, HttpServletRequest request) {
+        var body = new HashMap<>();
+        body.put("status", 400);
+        body.put("erro", "Bad Request");
+        body.put("mensagem", ex.getMessage());
+        body.put("caminho", request.getRequestURI());
+        body.put("timestamp", LocalDateTime.now());
+
+        return ResponseEntity.badRequest().body(body);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)

@@ -8,8 +8,6 @@ import java.util.UUID;
 
 public record DtoCadastroPartida(
         @NotNull
-        UUID id,
-        @NotNull
         UUID timeId,
         @NotNull
         @PastOrPresent

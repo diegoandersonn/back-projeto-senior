@@ -11,6 +11,7 @@ import java.util.UUID;
 @Table(name = "times")
 @Entity(name = "Time")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

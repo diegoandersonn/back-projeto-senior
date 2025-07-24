@@ -23,7 +23,7 @@ public class CadastroService {
     private List<ValidadorCadastro> validadores;
 
     public void validar(DtoAutenticacao dto) {
-         validadores.forEach(v -> v.validar(dto));
+        validadores.forEach(v -> v.validar(dto));
         var senhaCriptografada = passwordEncoder.encode(dto.senha());
         Usuario usuario = new Usuario(dto.login(), senhaCriptografada);
         usuarioRepository.save(usuario);

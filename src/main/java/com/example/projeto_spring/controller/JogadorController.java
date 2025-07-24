@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -41,29 +40,26 @@ public class JogadorController {
 
     @GetMapping
     public ResponseEntity listar() {
-        List<Jogador> jogadores = jogadorRepository.findAll();
+        List<Jogador> jogadores = jogadorService.listar();
         return ResponseEntity.ok(jogadores.stream().map(DtoListagemJogador::new).toList());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity listarJogador(@PathVariable UUID id) {
-        Optional<Jogador> jogador = jogadorRepository.findById(id);
-        return jogador
-                .map(j -> ResponseEntity.ok(new DtoListagemJogador(j)))
-                .orElse(ResponseEntity.notFound().build());
+        Jogador jogador = jogadorService.listarJogador(id);
+        return ResponseEntity.ok(new DtoListagemJogador(jogador));
     }
 
     @GetMapping("/time/{timeId}")
-    public ResponseEntity<List<DtoListagemJogador>> listarPorTime(@PathVariable UUID timeId) {
-        List<Jogador> jogadores = jogadorRepository.findByTimeId(timeId);
-        var dtoList = jogadores.stream().map(DtoListagemJogador::new).toList();
-        return ResponseEntity.ok(dtoList);
+    public ResponseEntity listarPorTime(@PathVariable UUID timeId) {
+        List<Jogador> jogadores = jogadorService.listarPorTime(timeId);
+        return ResponseEntity.ok(jogadores.stream().map(DtoListagemJogador::new).toList());
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity atualizar(@RequestBody @Valid DtoAtualizarJogador dto) {
-        Jogador jogador = jogadorService.atualizar(dto);
+    public ResponseEntity atualizar(@RequestBody @Valid DtoAtualizarJogador dto, @PathVariable UUID id) {
+        Jogador jogador = jogadorService.atualizar(dto, id);
         return ResponseEntity.ok(new DtoDetalhamentoJogador(jogador));
     }
 
