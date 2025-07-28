@@ -1,7 +1,7 @@
 package com.example.projeto_spring.dto.mapper;
 
 import com.example.projeto_spring.domain.Team;
-import com.example.projeto_spring.dto.team.TeamRegisterDto;
+import com.example.projeto_spring.dto.team.RegisterTeamDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -11,5 +11,5 @@ public interface TeamMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "nationality", ignore = true)
-    Team toEntity(TeamRegisterDto teamRegisterDto);
+    Team toEntity(RegisterTeamDto teamRegisterDto);
 }

@@ -4,7 +4,7 @@ import com.example.projeto_spring.domain.*;
 import com.example.projeto_spring.dto.player.UpdatePlayerDto;
 import com.example.projeto_spring.dto.player.RegisterPlayerDto;
 import com.example.projeto_spring.dto.mapper.PlayerMapper;
-import com.example.projeto_spring.dto.transfer.TransferRegisterDto;
+import com.example.projeto_spring.dto.transfer.RegisterTransferDto;
 import com.example.projeto_spring.enums.TransferType;
 import com.example.projeto_spring.repository.PlayerRepository;
 import com.example.projeto_spring.repository.NationalityRepository;
@@ -57,8 +57,8 @@ public class PlayerService {
 
         playerRepository.save(player);
 
-        TransferRegisterDto transferRegisterDto = new TransferRegisterDto(player.getId(), player.getTeam().getId(), player.getContract().getPaidValue() == 0 ? 0 : player.getContract().getPaidValue() * -1, player.getContract().getContractStart(), TransferType.PURCHASE);
-        transferService.purchase(transferRegisterDto);
+//        RegisterTransferDto transferRegisterDto = new TransferRegisterDto(player.getId(), player.getTeam().getId(), player.getContract().getPaidValue() == 0 ? 0 : player.getContract().getPaidValue() * -1, player.getContract().getContractStart(), TransferType.PURCHASE);
+//        transferService.purchase(transferRegisterDto);
 
         return player;
     }
@@ -103,8 +103,8 @@ public class PlayerService {
 
     public void delete(UUID id) {
         Player player = playerRepository.getReferenceById(id);
-        TransferRegisterDto dto = new TransferRegisterDto(player.getId(), player.getTeam().getId(), player.getContract().getCurrentValue(), LocalDate.now(), TransferType.SALE);
+//        TransferRegisterDto dto = new TransferRegisterDto(player.getId(), player.getTeam().getId(), player.getContract().getCurrentValue(), LocalDate.now(), TransferType.SALE);
         playerRepository.deleteById(player.getId());
-        transferService.sell(dto);
+//        transferService.sell(dto);
     }
 }

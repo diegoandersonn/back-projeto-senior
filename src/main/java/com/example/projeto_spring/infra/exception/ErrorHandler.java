@@ -3,18 +3,37 @@ package com.example.projeto_spring.infra.exception;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.naming.AuthenticationException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
 public class ErrorHandler {
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<String> handleBadCredentials(BadCredentialsException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos.");
+    }
+
+    @ExceptionHandler(DisabledException.class)
+    public ResponseEntity<String> handleDisabledUser(DisabledException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário desativado.");
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<String> handleAuth(AuthenticationException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Erro de autenticação.");
+    }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity entityNotFoundException(EntityNotFoundException ex) {
@@ -39,24 +58,39 @@ public class ErrorHandler {
         return ResponseEntity.badRequest().body(body);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity dataIntegrityViolationException(DataIntegrityViolationException ex) {
-        var mensagemDetalhada = "Erro de integridade de dados. Verifique se as informações preenchidas são válidas.";
+    @ExceptionHandler(DuplicatePlayerPerformanceException.class)
+    public ResponseEntity duplicatePlayerPerformanceException() {
+        return ResponseEntity.badRequest().build();
+    }
 
-        var causa = ex.getRootCause();
-        if (causa.getMessage() != null) {
-            var causaMsg = causa.getMessage();
+    @ExceptionHandler(InvalidShirtNumberException.class)
+    public ResponseEntity invalidShirtNumberException() {
+        return ResponseEntity.badRequest().build();
+    }
 
-            if (causaMsg.contains("violates foreign key constraint") && causaMsg.contains("fk_time")) {
-                mensagemDetalhada = "Erro: o time informado não existe no banco de dados.";
-            } else if (causaMsg.contains("null value in column")) {
-                mensagemDetalhada = "Erro: existe um campo obrigatório que não foi preenchido.";
-            } else if (causaMsg.contains("duplicate key")) {
-                mensagemDetalhada = "Erro: esse registro já existe.";
-            }
-        }
+    @ExceptionHandler(InvalidTransferWindowException.class)
+    public ResponseEntity invalidTransferWindowException() {
+        return ResponseEntity.badRequest().build();
+    }
 
-        return ResponseEntity.badRequest().body(Map.of("erro", mensagemDetalhada));
+    @ExceptionHandler(MatchOnSameDateException.class)
+    public ResponseEntity matchOnSameDateException() {
+        return ResponseEntity.badRequest().build();
+    }
+
+    @ExceptionHandler(PlayerNotInMatchTeamException.class)
+    public ResponseEntity playerNotInMatchTeamException() {
+        return ResponseEntity.badRequest().build();
+    }
+
+    @ExceptionHandler(RatingNotBetweenZeroAndTen.class)
+    public ResponseEntity ratingNotBetweenZeroAndTen() {
+        return ResponseEntity.badRequest().build();
+    }
+
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity validacaoException() {
+        return ResponseEntity.badRequest().build();
     }
 
     public record DtoErro400(String campo, String mensagem) {

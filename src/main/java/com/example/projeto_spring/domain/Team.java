@@ -1,6 +1,6 @@
 package com.example.projeto_spring.domain;
 
-import com.example.projeto_spring.dto.team.TeamUpdateDto;
+import com.example.projeto_spring.dto.team.UpdateTeamDto;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
@@ -28,7 +28,7 @@ public class Team {
     @JoinColumn(name = "nationality_id")
     private Nationality nationality;
 
-    public void atualizar(@Valid TeamUpdateDto dto) {
+    public void atualizar(@Valid UpdateTeamDto dto) {
         if (dto.name() != null) {
             this.name = dto.name();
         }

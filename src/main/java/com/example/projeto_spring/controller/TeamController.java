@@ -1,10 +1,10 @@
 package com.example.projeto_spring.controller;
 
 import com.example.projeto_spring.domain.Team;
-import com.example.projeto_spring.dto.team.TeamUpdateDto;
-import com.example.projeto_spring.dto.team.TeamRegisterDto;
-import com.example.projeto_spring.dto.team.TeamDetailDto;
-import com.example.projeto_spring.dto.team.TeamListDto;
+import com.example.projeto_spring.dto.team.UpdateTeamDto;
+import com.example.projeto_spring.dto.team.RegisterTeamDto;
+import com.example.projeto_spring.dto.team.DetailTeamDto;
+import com.example.projeto_spring.dto.team.ListTeamDto;
 import com.example.projeto_spring.repository.TeamRepository;
 import com.example.projeto_spring.service.team.TeamService;
 import jakarta.transaction.Transactional;
@@ -29,38 +29,39 @@ public class TeamController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity registerTeam(@RequestBody @Valid TeamRegisterDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity registerTeam(@RequestBody @Valid RegisterTeamDto dto, UriComponentsBuilder uriBuilder) {
         Team team = teamService.register(dto);
         var uri = uriBuilder.path("/teams/{id}").buildAndExpand(team.getId()).toUri();
-        return ResponseEntity.created(uri).body(new TeamDetailDto(team));
+        return ResponseEntity.created(uri).body(new DetailTeamDto(team));
     }
 
     @GetMapping
     public ResponseEntity listTeams() {
         List<Team> teams = teamService.list();
-        return ResponseEntity.ok(teams.stream().map(TeamListDto::new).toList());
+        return ResponseEntity.ok(teams.stream().map(ListTeamDto::new).toList());
     }
 
     @GetMapping("/{teamId}")
     public ResponseEntity listTeamById(@PathVariable UUID teamId) {
         Team team = teamService.listTeamById(teamId);
-        return ResponseEntity.ok(new TeamListDto(team));
+        return ResponseEntity.ok(new ListTeamDto(team));
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity listTeamByUserId(@PathVariable UUID userId) {
         List<Team> teams = teamService.listTeamByUserId(userId);
-        return ResponseEntity.ok(teams.stream().map(TeamListDto::new).toList());
+        return ResponseEntity.ok(teams.stream().map(ListTeamDto::new).toList());
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity update(@RequestBody @Valid TeamUpdateDto dto, @PathVariable UUID id) {
+    public ResponseEntity update(@RequestBody @Valid UpdateTeamDto dto, @PathVariable UUID id) {
         Team team = teamService.update(dto, id);
-        return ResponseEntity.ok(new TeamDetailDto(team));
+        return ResponseEntity.ok(new DetailTeamDto(team));
     }
 
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity delete(@PathVariable UUID id) {
         teamService.delete(id);
         return ResponseEntity.noContent().build();

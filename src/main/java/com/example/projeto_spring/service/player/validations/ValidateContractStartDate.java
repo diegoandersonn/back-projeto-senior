@@ -2,6 +2,7 @@ package com.example.projeto_spring.service.player.validations;
 
 import com.example.projeto_spring.domain.Nationality;
 import com.example.projeto_spring.dto.player.RegisterPlayerDto;
+import com.example.projeto_spring.infra.exception.InvalidTransferWindowException;
 import com.example.projeto_spring.repository.NationalityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,7 +37,7 @@ public class ValidateContractStartDate implements PlayerValidator {
         }
 
         if (!firstWindow && !secondWindow) {
-            throw new RuntimeException("Data fora das janela de transferência");
+            throw new InvalidTransferWindowException("Data fora das janela de transferência");
         }
     }
 }

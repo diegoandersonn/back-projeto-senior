@@ -5,7 +5,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 import java.util.UUID;
 
-public record TeamUpdateDto(
+public record UpdateTeamDto(
         @NotNull UUID id,
         String name,
         String stadium,

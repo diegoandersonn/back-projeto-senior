@@ -1,7 +1,7 @@
 package com.example.projeto_spring.service.team.validations;
 
-import com.example.projeto_spring.dto.team.TeamRegisterDto;
+import com.example.projeto_spring.dto.team.RegisterTeamDto;
 
 public interface TeamValidator {
-    void validate(TeamRegisterDto teamRegisterDto);
+    void validate(RegisterTeamDto teamRegisterDto);
 }

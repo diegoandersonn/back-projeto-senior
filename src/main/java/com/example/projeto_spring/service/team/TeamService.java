@@ -4,8 +4,8 @@ import com.example.projeto_spring.domain.Nationality;
 import com.example.projeto_spring.domain.Team;
 import com.example.projeto_spring.domain.User;
 import com.example.projeto_spring.dto.mapper.TeamMapper;
-import com.example.projeto_spring.dto.team.TeamUpdateDto;
-import com.example.projeto_spring.dto.team.TeamRegisterDto;
+import com.example.projeto_spring.dto.team.UpdateTeamDto;
+import com.example.projeto_spring.dto.team.RegisterTeamDto;
 import com.example.projeto_spring.repository.NationalityRepository;
 import com.example.projeto_spring.repository.TeamRepository;
 import com.example.projeto_spring.repository.UserRepository;
@@ -32,7 +32,7 @@ public class TeamService {
     private UserRepository userRepository;
 
 
-    public Team register(TeamRegisterDto dto) {
+    public Team register(RegisterTeamDto dto) {
         Team team = teamMapper.toEntity(dto);
 
         User user = userRepository.getReferenceById(dto.userId());
@@ -58,7 +58,7 @@ public class TeamService {
         return teamOpt.orElseThrow();
     }
 
-    public Team update(TeamUpdateDto dto, UUID timeId) {
+    public Team update(UpdateTeamDto dto, UUID timeId) {
         Optional<Team> teamOpt = teamRepository.findById(timeId);
         Team team = teamOpt.orElseThrow();
 

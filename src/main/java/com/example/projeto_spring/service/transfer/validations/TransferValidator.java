@@ -1,7 +1,7 @@
 package com.example.projeto_spring.service.transfer.validations;
 
-import com.example.projeto_spring.dto.transfer.TransferRegisterDto;
+import com.example.projeto_spring.dto.transfer.RegisterTransferDto;
 
 public interface TransferValidator {
-    void validate(TransferRegisterDto transferRegisterDto);
+    void validate(RegisterTransferDto transferRegisterDto);
 }

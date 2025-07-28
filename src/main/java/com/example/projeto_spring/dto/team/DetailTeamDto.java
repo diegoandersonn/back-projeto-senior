@@ -4,8 +4,8 @@ import com.example.projeto_spring.domain.Team;
 
 import java.util.UUID;
 
-public record TeamDetailDto(UUID id, String name, String stadium, Double transferBalance) {
-    public TeamDetailDto(Team team) {
+public record DetailTeamDto(UUID id, String name, String stadium, Double transferBalance) {
+    public DetailTeamDto(Team team) {
         this(team.getId(), team.getName(), team.getStadium(), team.getTransferBalance());
     }
 }

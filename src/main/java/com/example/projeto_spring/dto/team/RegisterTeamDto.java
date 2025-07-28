@@ -6,7 +6,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 import java.util.UUID;
 
-public record TeamRegisterDto(
+public record RegisterTeamDto(
         @NotBlank
         String name,
         @NotBlank
