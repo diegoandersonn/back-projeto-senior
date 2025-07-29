@@ -27,16 +27,4 @@ public class Team {
     @ManyToOne
     @JoinColumn(name = "nationality_id")
     private Nationality nationality;
-
-    public void atualizar(@Valid UpdateTeamDto dto) {
-        if (dto.name() != null) {
-            this.name = dto.name();
-        }
-        if (dto.stadium() != null) {
-            this.stadium = dto.stadium();
-        }
-        if (dto.transferBalance() != null) {
-            this.transferBalance = dto.transferBalance();
-        }
-    }
 }

@@ -21,6 +21,9 @@ import java.util.UUID;
 public class TeamService {
 
     @Autowired
+    private List<TeamValidator> validators;
+
+    @Autowired
     private TeamMapper teamMapper;
 
     @Autowired
@@ -31,10 +34,6 @@ public class TeamService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private List<TeamValidator> validators;
-
 
     public Team register(RegisterTeamDto dto) {
         validators.forEach(v -> v.validate(dto));

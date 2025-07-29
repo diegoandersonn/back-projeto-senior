@@ -6,9 +6,11 @@ import com.example.projeto_spring.infra.exception.InvalidTransferWindowException
 import com.example.projeto_spring.repository.NationalityRepository;
 import com.example.projeto_spring.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
+@Component
 public class ValidateInvalidTransferDate implements TransferValidator {
 
     @Autowired

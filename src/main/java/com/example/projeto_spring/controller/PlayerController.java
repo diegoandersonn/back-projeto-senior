@@ -58,14 +58,14 @@ public class PlayerController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity update(@RequestBody @Valid UpdatePlayerDto dto, @PathVariable UUID id) {
+    public ResponseEntity updatePlayer(@RequestBody @Valid UpdatePlayerDto dto, @PathVariable UUID id) {
         Player player = playerService.update(dto, id);
         return ResponseEntity.ok(new DetailPlayerDto(player));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity delete(@PathVariable UUID id) {
+    public ResponseEntity deletePlayer(@PathVariable UUID id) {
         playerService.delete(id);
         return ResponseEntity.noContent().build();
     }

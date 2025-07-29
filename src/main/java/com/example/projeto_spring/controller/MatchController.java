@@ -28,14 +28,14 @@ public class MatchController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity register(@RequestBody @Valid RegisterMatchDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity registerMatch(@RequestBody @Valid RegisterMatchDto dto, UriComponentsBuilder uriBuilder) {
         Match match = matchService.register(dto);
         var uri = uriBuilder.path("/matches/{id}").buildAndExpand(match.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetailMatchDto(match));
     }
 
     @GetMapping
-    public ResponseEntity list() {
+    public ResponseEntity listMatch() {
         List<Match> matches = matchService.list();
         return ResponseEntity.ok(matches.stream().map(ListMatchDto::new).toList());
     }

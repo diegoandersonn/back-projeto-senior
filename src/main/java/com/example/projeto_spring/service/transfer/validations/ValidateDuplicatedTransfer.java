@@ -4,7 +4,9 @@ import com.example.projeto_spring.dto.transfer.RegisterTransferDto;
 import com.example.projeto_spring.infra.exception.DuplicatedTransferException;
 import com.example.projeto_spring.repository.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ValidateDuplicatedTransfer implements TransferValidator {
 
     @Autowired

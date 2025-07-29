@@ -29,14 +29,14 @@ public class PerformanceController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity register(@RequestBody @Valid RegisterPerformanceDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity registerPerformance(@RequestBody @Valid RegisterPerformanceDto dto, UriComponentsBuilder uriBuilder) {
         Performance performance = performanceService.register(dto);
         var uri = uriBuilder.path("/performances/{id}").buildAndExpand(performance.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetailPerformanceDto(performance));
     }
 
     @GetMapping
-    public ResponseEntity list() {
+    public ResponseEntity listPerformance() {
         List<Performance> performances = performanceService.list();
         return ResponseEntity.ok(performances.stream().map(ListPerformanceDto::new).toList());
     }
@@ -54,13 +54,13 @@ public class PerformanceController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable UUID id, @RequestBody @Valid UpdatePerformanceDto dto) {
+    public ResponseEntity updatePerformance(@PathVariable UUID id, @RequestBody @Valid UpdatePerformanceDto dto) {
         Performance performance = performanceService.update(id, dto);
         return ResponseEntity.ok(new DetailPerformanceDto(performance));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable UUID id) {
+    public ResponseEntity deletePerformance(@PathVariable UUID id) {
         performanceService.delete(id);
         return ResponseEntity.noContent().build();
     }

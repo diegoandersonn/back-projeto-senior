@@ -55,14 +55,14 @@ public class TeamController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity update(@RequestBody @Valid UpdateTeamDto dto, @PathVariable UUID id) {
+    public ResponseEntity updateTeam(@RequestBody @Valid UpdateTeamDto dto, @PathVariable UUID id) {
         Team team = teamService.update(dto, id);
         return ResponseEntity.ok(new DetailTeamDto(team));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity delete(@PathVariable UUID id) {
+    public ResponseEntity deleteTeam(@PathVariable UUID id) {
         teamService.delete(id);
         return ResponseEntity.noContent().build();
     }
