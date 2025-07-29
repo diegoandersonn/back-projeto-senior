@@ -56,15 +56,11 @@ public class PlayerService {
         player.setNationality(nationality);
 
         playerRepository.save(player);
-
-//        RegisterTransferDto transferRegisterDto = new TransferRegisterDto(player.getId(), player.getTeam().getId(), player.getContract().getPaidValue() == 0 ? 0 : player.getContract().getPaidValue() * -1, player.getContract().getContractStart(), TransferType.PURCHASE);
-//        transferService.purchase(transferRegisterDto);
-
         return player;
     }
 
     public List<Player> list() {
-        return playerRepository.findAll();
+        return playerRepository.findAllByTeamIdNotNull();
     }
 
     public Player listPlayerById(UUID id) {
@@ -103,8 +99,6 @@ public class PlayerService {
 
     public void delete(UUID id) {
         Player player = playerRepository.getReferenceById(id);
-//        TransferRegisterDto dto = new TransferRegisterDto(player.getId(), player.getTeam().getId(), player.getContract().getCurrentValue(), LocalDate.now(), TransferType.SALE);
         playerRepository.deleteById(player.getId());
-//        transferService.sell(dto);
     }
 }

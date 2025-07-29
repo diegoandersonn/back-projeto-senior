@@ -8,12 +8,12 @@ import jakarta.validation.constraints.PositiveOrZero;
 import java.time.LocalDate;
 
 public record UpdateContractDto(
-        @PositiveOrZero
+        @PositiveOrZero(message = "Salário deve ser positivo ou zero.")
         Double salary,
-        @Positive
+        @Positive(message = "Salário deve ser positivo.")
         Double currentValue,
         ContractType contractType,
-        @Future
+        @Future(message = "Data de fim do contrato deve ser no futuro!.")
         LocalDate contractEnd
 ) {
 }

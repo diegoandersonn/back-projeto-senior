@@ -6,21 +6,21 @@ import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 public record RegisterContractDto(
-        @NotNull
-        @Positive
+        @NotNull(message = "Salário deve ser informado!")
+        @Positive(message = "Salário deve ser positivo")
         Double salary,
-        @NotNull
-        @Positive
+        @NotNull(message = "Valor atual deve ser informado!")
+        @Positive(message = "Valor atual deve ser positivo")
         Double currentValue,
-        @NotNull
-        @PositiveOrZero
+        @NotNull(message = "Valor pago deve ser informado!")
+        @PositiveOrZero(message = "Valor pago deve ser positivo ou zero")
         Double paidValue,
-        @NotNull
+        @NotNull(message = "Tipo de contrato deve ser informado!")
         ContractType contractType,
-        @NotNull
+        @NotNull(message = "Data de começo do contrato deve ser informada!")
         LocalDate contractStart,
-        @NotNull
-        @Future
+        @NotNull(message = "Data de fim do contrato deve ser informada!")
+        @Future(message = "Data de fim do contrato deve ser no futuro!")
         LocalDate contractEnd
 ) {
 }

@@ -7,10 +7,10 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public record RegisterMatchDto(
-        @NotNull
+        @NotNull(message = "Time deve ser informado.")
         UUID timeId,
-        @NotNull
-        @PastOrPresent
+        @NotNull(message = "Data deve ser informada.")
+        @PastOrPresent(message = "Data deve estar no presente ou passado!")
         LocalDate date
 ) {
 }

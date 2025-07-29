@@ -9,6 +9,7 @@ import com.example.projeto_spring.dto.team.RegisterTeamDto;
 import com.example.projeto_spring.repository.NationalityRepository;
 import com.example.projeto_spring.repository.TeamRepository;
 import com.example.projeto_spring.repository.UserRepository;
+import com.example.projeto_spring.service.team.validations.TeamValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,8 +32,12 @@ public class TeamService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private List<TeamValidator> validators;
+
 
     public Team register(RegisterTeamDto dto) {
+        validators.forEach(v -> v.validate(dto));
         Team team = teamMapper.toEntity(dto);
 
         User user = userRepository.getReferenceById(dto.userId());

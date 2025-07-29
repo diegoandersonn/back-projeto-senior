@@ -1,25 +1,25 @@
 package com.example.projeto_spring.dto.transfer;
 
 import com.example.projeto_spring.enums.TransferType;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 public record RegisterTransferDto(
-        @NotNull
+        @NotNull(message = "Jogador deve ser informado.")
         UUID playerId,
-        @NotNull
+        @NotNull(message = "Time deve ser informado.")
         UUID teamId,
-        @NotNull
-        @PositiveOrZero
+        @NotNull(message = "Valor deve ser informado.")
+        @Positive(message = "Valor deve ser positivo.")
         Double value,
-        @NotNull
-        @PastOrPresent
+        @NotNull(message = "Data deve ser informada.")
+        @PastOrPresent(message = "Data não pode ser futura.")
         LocalDate date,
-        @NotNull
-        TransferType transferType
+        @NotBlank(message = "Tipo de transferência deve ser informado.")
+        @Pattern(regexp = "SALE|LOAN|PURCHASE", message = "Tipo de transferência inválido.")
+        String transferType
+
 ) {
 }

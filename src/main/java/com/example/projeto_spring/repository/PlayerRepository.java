@@ -12,4 +12,6 @@ public interface PlayerRepository extends JpaRepository<Player, UUID> {
     Boolean existsByTeamIdAndShirtNumber(UUID teamId, int shirtNumber);
 
     Player findByTeamIdAndShirtNumber(UUID teamId, int shirtNumber);
+
+    List<Player> findAllByTeamIdNotNull();
 }

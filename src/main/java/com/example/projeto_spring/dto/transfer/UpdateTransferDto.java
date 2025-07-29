@@ -1,16 +1,15 @@
 package com.example.projeto_spring.dto.transfer;
 
 import com.example.projeto_spring.enums.TransferType;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
 public record UpdateTransferDto(
-        @PositiveOrZero
+        @Positive(message = "Valor deve ser positivo.")
         Double value,
-        @PastOrPresent
+        @PastOrPresent(message = "Data não pode ser futura.")
         LocalDate date,
+        @Pattern(regexp = "SALE|LOAN|PURCHASE", message = "Tipo de transferência inválido.")
         TransferType transferType) {
 }

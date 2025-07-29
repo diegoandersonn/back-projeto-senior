@@ -10,6 +10,7 @@ import com.example.projeto_spring.enums.TransferType;
 import com.example.projeto_spring.repository.PlayerRepository;
 import com.example.projeto_spring.repository.TeamRepository;
 import com.example.projeto_spring.repository.TransferRepository;
+import com.example.projeto_spring.service.transfer.validations.TransferValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ import java.util.UUID;
 
 @Service
 public class TransferService {
+
+    @Autowired
+    private List<TransferValidator> validators;
 
     @Autowired
     private TransferMapper transferMapper;
@@ -32,14 +36,21 @@ public class TransferService {
     private TeamRepository teamRepository;
 
     public Transfer register(RegisterTransferDto dto) {
+        validators.forEach(v -> v.validate(dto));
+
         Transfer transfer = transferMapper.toEntity(dto);
+
         Player player = playerRepository.getReferenceById(dto.playerId());
         transfer.setPlayer(player);
+
         Team team = teamRepository.getReferenceById(dto.teamId());
         transfer.setTeam(team);
+
         if (transfer.getTransferType() == TransferType.SALE) {
             player.setTeam(null);
         }
+
+        transferRepository.save(transfer);
         return transfer;
     }
 

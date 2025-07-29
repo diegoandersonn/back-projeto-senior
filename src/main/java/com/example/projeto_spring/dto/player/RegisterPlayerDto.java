@@ -9,24 +9,26 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public record RegisterPlayerDto(
-        @NotBlank
+        @NotBlank(message = "Nome deve ser informado.")
+        @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres.")
         String name,
-        @NotBlank
+        @NotBlank(message = "Nome completo deve ser informado.")
+        @Size(min = 3, max = 255, message = "O nome deve ter entre 3 e 255 caracteres.")
         String fullName,
-        @NotNull
-        @Positive
+        @NotNull(message = "Número da camisa deve ser informado.")
+        @Positive(message = "O número da camisa deve ser positivo")
         int shirtNumber,
-        @NotNull
-        @Positive
+        @NotNull(message = "Altura deve ser informada.")
+        @Positive(message = "A altura deve ser positiva")
         Double height,
-        @NotNull
+        @NotNull(message = "Posição deve ser informada.")
         Position position,
-        @NotNull
+        @NotNull(message = "Time deve ser informado.")
         UUID teamId,
-        @NotNull
+        @NotNull(message = "Nacionalidade deve ser informada.")
         UUID nationalityId,
-        @NotNull
-        @Past
+        @NotNull(message = "Data de nascimento deve ser informada.")
+        @Past(message = "Data de nascimento deve ser no passado")
         LocalDate birthDate,
         @Valid
         RegisterContractDto contract
