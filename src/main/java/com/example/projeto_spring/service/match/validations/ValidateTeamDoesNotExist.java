@@ -13,7 +13,7 @@ public class ValidateTeamDoesNotExist implements MatchValidator {
     private TeamRepository timeRepository;
 
     public void validate(RegisterMatchDto dto) {
-        if (!timeRepository.existsById(dto.timeId())) {
+        if (!timeRepository.existsById(dto.teamId())) {
             throw new EntityNotFoundException("Time não encontrando");
         }
     }

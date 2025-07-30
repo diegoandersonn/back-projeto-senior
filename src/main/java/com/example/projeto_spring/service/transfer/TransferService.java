@@ -11,6 +11,7 @@ import com.example.projeto_spring.repository.PlayerRepository;
 import com.example.projeto_spring.repository.TeamRepository;
 import com.example.projeto_spring.repository.TransferRepository;
 import com.example.projeto_spring.service.transfer.validations.TransferValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class TransferService {
 
     @Autowired

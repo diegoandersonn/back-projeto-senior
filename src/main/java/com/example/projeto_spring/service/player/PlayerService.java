@@ -1,26 +1,24 @@
 package com.example.projeto_spring.service.player;
 
-import com.example.projeto_spring.domain.*;
-import com.example.projeto_spring.dto.player.UpdatePlayerDto;
-import com.example.projeto_spring.dto.player.RegisterPlayerDto;
+import com.example.projeto_spring.domain.Nationality;
+import com.example.projeto_spring.domain.Player;
+import com.example.projeto_spring.domain.Team;
 import com.example.projeto_spring.dto.mapper.PlayerMapper;
-import com.example.projeto_spring.dto.transfer.RegisterTransferDto;
-import com.example.projeto_spring.enums.TransferType;
-import com.example.projeto_spring.repository.PlayerRepository;
+import com.example.projeto_spring.dto.player.RegisterPlayerDto;
+import com.example.projeto_spring.dto.player.UpdatePlayerDto;
 import com.example.projeto_spring.repository.NationalityRepository;
+import com.example.projeto_spring.repository.PlayerRepository;
 import com.example.projeto_spring.repository.TeamRepository;
-import com.example.projeto_spring.repository.TransferRepository;
 import com.example.projeto_spring.service.player.validations.PlayerValidator;
-import com.example.projeto_spring.service.transfer.TransferService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class PlayerService {
 
     @Autowired
@@ -37,13 +35,6 @@ public class PlayerService {
 
     @Autowired
     private TeamRepository teamRepository;
-
-    @Autowired
-    private TransferRepository transferRepository;
-
-
-    @Autowired
-    private TransferService transferService;
 
     public Player register(RegisterPlayerDto dto) {
         validators.forEach(v -> v.validate(dto));
@@ -72,8 +63,7 @@ public class PlayerService {
     }
 
     public Player update(UpdatePlayerDto dto, UUID id) {
-        Optional<Player> playerOpt = playerRepository.findById(id);
-        Player player = playerOpt.orElseThrow();
+        Player player = playerRepository.getReferenceById(id);
 
         if (dto.name() != null) {
             player.setName(dto.name());
@@ -98,7 +88,6 @@ public class PlayerService {
     }
 
     public void delete(UUID id) {
-        Player player = playerRepository.getReferenceById(id);
-        playerRepository.deleteById(player.getId());
+        playerRepository.deleteById(id);
     }
 }

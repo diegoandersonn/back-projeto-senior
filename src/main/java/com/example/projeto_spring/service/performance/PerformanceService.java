@@ -10,6 +10,7 @@ import com.example.projeto_spring.repository.PerformanceRepository;
 import com.example.projeto_spring.repository.PlayerRepository;
 import com.example.projeto_spring.repository.MatchRepository;
 import com.example.projeto_spring.service.performance.validations.PerformanceValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class PerformanceService {
 
     @Autowired

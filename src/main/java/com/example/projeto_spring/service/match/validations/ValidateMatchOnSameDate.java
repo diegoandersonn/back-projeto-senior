@@ -13,7 +13,7 @@ public class ValidateMatchOnSameDate implements MatchValidator {
     private MatchRepository matchRepository;
 
     public void validate(RegisterMatchDto dto) {
-        if (matchRepository.existsByDateAndTeamId(dto.date(), dto.timeId())) {
+        if (matchRepository.existsByDateAndTeamId(dto.date(), dto.teamId())) {
             throw new MatchOnSameDateException("Time não pode ter duas partidas na mesma data");
         }
     }

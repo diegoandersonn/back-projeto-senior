@@ -19,7 +19,6 @@ public record RegisterTransferDto(
         LocalDate date,
         @NotBlank(message = "Tipo de transferência deve ser informado.")
         @Pattern(regexp = "SALE|LOAN|PURCHASE", message = "Tipo de transferência inválido.")
-        String transferType
-
+        TransferType transferType
 ) {
 }

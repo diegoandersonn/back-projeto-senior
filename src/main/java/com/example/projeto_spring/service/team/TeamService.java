@@ -4,20 +4,21 @@ import com.example.projeto_spring.domain.Nationality;
 import com.example.projeto_spring.domain.Team;
 import com.example.projeto_spring.domain.User;
 import com.example.projeto_spring.dto.mapper.TeamMapper;
-import com.example.projeto_spring.dto.team.UpdateTeamDto;
 import com.example.projeto_spring.dto.team.RegisterTeamDto;
+import com.example.projeto_spring.dto.team.UpdateTeamDto;
 import com.example.projeto_spring.repository.NationalityRepository;
 import com.example.projeto_spring.repository.TeamRepository;
 import com.example.projeto_spring.repository.UserRepository;
 import com.example.projeto_spring.service.team.validations.TeamValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class TeamService {
 
     @Autowired
@@ -58,13 +59,11 @@ public class TeamService {
     }
 
     public List<Team> listTeamByUserId(UUID usuarioId) {
-        Optional<List<Team>> teamOpt = teamRepository.findAllByUserId(usuarioId);
-        return teamOpt.orElseThrow();
+        return teamRepository.findAllByUserId(usuarioId);
     }
 
     public Team update(UpdateTeamDto dto, UUID timeId) {
-        Optional<Team> teamOpt = teamRepository.findById(timeId);
-        Team team = teamOpt.orElseThrow();
+        Team team = teamRepository.getReferenceById(timeId);
 
         if (dto.name() != null) {
             team.setName(dto.name());

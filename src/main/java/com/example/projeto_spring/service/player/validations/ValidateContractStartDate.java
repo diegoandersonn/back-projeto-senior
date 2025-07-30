@@ -21,13 +21,13 @@ public class ValidateContractStartDate implements PlayerValidator {
         int year = contract.getYear();
         Boolean firstWindow, secondWindow;
 
-        if (dto.contract().paidValue() == 0) {
+        if (dto.contract().paidValue() == 0.00) {
             return;
         }
 
         if (nationality.getContinent().equals("Americas")) {
             firstWindow = !contract.isBefore(LocalDate.of(year, 1, 1)) && !contract.isAfter(LocalDate.of(year, 4, 16));
-            secondWindow = !contract.isBefore(LocalDate.of(year, 6, 22)) && !contract.isAfter(LocalDate.of(year, 7, 21));
+            secondWindow = !contract.isBefore(LocalDate.of(year, 6, 22)) && !contract.isAfter(LocalDate.of(year, 9, 2));
         } else if (nationality.getContinent().equals("Europe")) {
             firstWindow = !contract.isBefore(LocalDate.of(year, 1, 1)) && !contract.isAfter(LocalDate.of(year, 2, 2));
             secondWindow = !contract.isBefore(LocalDate.of(year, 7, 1)) && !contract.isAfter(LocalDate.of(year, 8, 31));

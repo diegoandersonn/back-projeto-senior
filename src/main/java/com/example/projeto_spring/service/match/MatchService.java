@@ -7,6 +7,7 @@ import com.example.projeto_spring.dto.match.RegisterMatchDto;
 import com.example.projeto_spring.repository.MatchRepository;
 import com.example.projeto_spring.repository.TeamRepository;
 import com.example.projeto_spring.service.match.validations.MatchValidator;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class MatchService {
 
     @Autowired
@@ -32,7 +34,7 @@ public class MatchService {
         validators.forEach(v -> v.validate(dto));
         Match match = matchMapper.toEntity(dto);
 
-        Team team = teamRepository.getReferenceById(dto.timeId());
+        Team team = teamRepository.getReferenceById(dto.teamId());
         match.setTeam(team);
 
         matchRepository.save(match);

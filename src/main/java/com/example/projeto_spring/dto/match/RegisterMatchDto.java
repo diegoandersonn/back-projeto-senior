@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public record RegisterMatchDto(
         @NotNull(message = "Time deve ser informado.")
-        UUID timeId,
+        UUID teamId,
         @NotNull(message = "Data deve ser informada.")
         @PastOrPresent(message = "Data deve estar no presente ou passado!")
         LocalDate date
