@@ -31,7 +31,7 @@ public class AuthController {
     private UserRepository usuarioRepository;
 
     @PostMapping("/login")
-    public ResponseEntity efetuarLogin(@RequestBody @Valid AuthDto dto) {
+    public ResponseEntity loginUser(@RequestBody @Valid AuthDto dto) {
         var authToken = new UsernamePasswordAuthenticationToken(dto.login(), dto.password());
         var auth = authenticationManager.authenticate(authToken);
         var jwtToken = tokenService.gerarToken((User) auth.getPrincipal());
@@ -40,7 +40,7 @@ public class AuthController {
 
     @PostMapping("/register")
     @Transactional
-    public ResponseEntity cadastar(@RequestBody @Valid AuthDto dto) {
+    public ResponseEntity registerUser(@RequestBody @Valid AuthDto dto) {
         validaCadastro.validar(dto);
         return ResponseEntity.ok().build();
     }

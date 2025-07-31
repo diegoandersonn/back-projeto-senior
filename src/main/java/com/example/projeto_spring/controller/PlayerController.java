@@ -32,15 +32,15 @@ public class PlayerController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity register(@RequestBody @Valid RegisterPlayerDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity registerPlayer(@RequestBody @Valid RegisterPlayerDto dto, UriComponentsBuilder uriBuilder) {
         Player player = playerService.register(dto);
         var uri = uriBuilder.path("/players/{id}").buildAndExpand(player.getId()).toUri();
         return ResponseEntity.created(uri).body(new DetailPlayerDto(player));
     }
 
     @GetMapping
-    public ResponseEntity list() {
-        List<Player> players = playerService.list();
+    public ResponseEntity listPlayers(@RequestParam(name="sort", required = false) String sort) {
+        List<Player> players = playerService.list(sort);
         return ResponseEntity.ok(players.stream().map(ListPlayerDto::new).toList());
     }
 
@@ -51,8 +51,8 @@ public class PlayerController {
     }
 
     @GetMapping("/team/{teamId}")
-    public ResponseEntity listPlayerByTeamId(@PathVariable UUID teamId) {
-        List<Player> players = playerService.listPlayerByTeamId(teamId);
+    public ResponseEntity listPlayerByTeamId(@RequestParam(name="sort", required = false) String sort, @PathVariable UUID teamId) {
+        List<Player> players = playerService.listPlayerByTeamId(teamId, sort);
         return ResponseEntity.ok(players.stream().map(ListPlayerDto::new).toList());
     }
 

@@ -14,4 +14,8 @@ public interface PlayerRepository extends JpaRepository<Player, UUID> {
     Player findByTeamIdAndShirtNumber(UUID teamId, int shirtNumber);
 
     List<Player> findAllByTeamIdNotNull();
+
+    List<Player> findAllByOrderByPositionAsc();
+
+    List<Player> findByTeamIdOrderByPositionAsc(UUID teamId);
 }

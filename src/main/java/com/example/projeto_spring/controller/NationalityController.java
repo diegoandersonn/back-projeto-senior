@@ -24,7 +24,7 @@ public class NationalityController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity register(@RequestBody @Valid RegisterNationalityDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity registerNationality(@RequestBody @Valid RegisterNationalityDto dto, UriComponentsBuilder uriBuilder) {
         Nationality nationality = new Nationality(dto);
         nationalityRepository.save(nationality);
         var uri = uriBuilder.path("nationalities/{id}").buildAndExpand(nationality.getId()).toUri();
@@ -32,13 +32,13 @@ public class NationalityController {
     }
 
     @PostMapping("/import")
-    public ResponseEntity importar() {
+    public ResponseEntity importNationalities() {
         service.importNationalities();
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping
-    public ResponseEntity list() {
+    public ResponseEntity listNationalities() {
         List<Nationality> nationalities = nationalityRepository.findAll();
         return ResponseEntity.ok(nationalities);
     }

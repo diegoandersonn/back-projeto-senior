@@ -12,13 +12,12 @@ public record RegisterTransferDto(
         @NotNull(message = "Time deve ser informado.")
         UUID teamId,
         @NotNull(message = "Valor deve ser informado.")
-        @Positive(message = "Valor deve ser positivo.")
+        @PositiveOrZero(message = "Valor deve ser positivo ou zero.")
         Double value,
         @NotNull(message = "Data deve ser informada.")
         @PastOrPresent(message = "Data não pode ser futura.")
         LocalDate date,
-        @NotBlank(message = "Tipo de transferência deve ser informado.")
-        @Pattern(regexp = "SALE|LOAN|PURCHASE", message = "Tipo de transferência inválido.")
+        @NotNull(message = "Tipo de transferência deve ser informado.")
         TransferType transferType
 ) {
 }

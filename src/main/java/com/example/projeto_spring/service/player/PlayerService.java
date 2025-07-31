@@ -14,6 +14,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,16 +52,26 @@ public class PlayerService {
         return player;
     }
 
-    public List<Player> list() {
-        return playerRepository.findAllByTeamIdNotNull();
+    public List<Player> list(String sort) {
+        if ("position".equalsIgnoreCase(sort)) {
+            return playerRepository.findAllByOrderByPositionAsc();
+        } else {
+            return playerRepository.findAll();
+        }
     }
 
     public Player listPlayerById(UUID id) {
         return playerRepository.getReferenceById(id);
     }
 
-    public List<Player> listPlayerByTeamId(UUID timeId) {
-        return playerRepository.findByTeamId(timeId);
+    public List<Player> listPlayerByTeamId(UUID teamId, String sort) {
+        if ("position".equalsIgnoreCase(sort)) {
+            List<Player> players = playerRepository.findByTeamIdOrderByPositionAsc(teamId);
+            players.sort(Comparator.comparingInt(p -> p.getPosition().ordinal()));
+            return players;
+        } else {
+            return playerRepository.findByTeamId(teamId);
+        }
     }
 
     public Player update(UpdatePlayerDto dto, UUID id) {

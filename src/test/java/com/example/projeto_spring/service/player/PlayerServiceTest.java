@@ -123,7 +123,7 @@ class PlayerServiceTest {
     void shouldReturnAllPlayers_WhenPlayersHaveTeam() {
         when(playerRepository.findAllByTeamIdNotNull()).thenReturn(players);
 
-        assertEquals(players, service.list());
+        assertEquals(players, service.list(""));
     }
 
     @Test
@@ -137,7 +137,7 @@ class PlayerServiceTest {
     void shouldReturnPlayersByTeamId_WhenTeamExists() {
         when(playerRepository.findByTeamId(teamId)).thenReturn(players);
 
-        assertEquals(players, service.listPlayerByTeamId(teamId));
+        assertEquals(players, service.listPlayerByTeamId(teamId, ""));
     }
 
     private static Stream<Arguments> provideValidUpdatePlayerData() {
